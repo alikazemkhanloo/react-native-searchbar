@@ -100,7 +100,8 @@ export default class Search extends Component {
       show: props.showOnLoad,
       top: new Animated.Value(
         props.showOnLoad ? 0 : INITIAL_TOP + props.heightAdjust
-      )
+      ),
+      results:[]
     };
   }
 
@@ -130,6 +131,9 @@ export default class Search extends Component {
   };
 
   hide = () => {
+    this.setState({
+      results:[]
+    });
     const { onHide, animate, animationDuration } = this.props;
     if (onHide) {
       onHide(this.state.input);
@@ -150,6 +154,11 @@ export default class Search extends Component {
     }
   };
 
+  setResults = (results)=>{
+    this.setState({
+      results:results
+    })
+  };
   _doHide = () => {
     const { clearOnHide } = this.props;
     this.setState({ show: false });
@@ -350,6 +359,9 @@ export default class Search extends Component {
                   />
                 )}
               </TouchableOpacity>
+            </View>
+            <View>
+              {this.state.results}
             </View>
           </View>
         )}
