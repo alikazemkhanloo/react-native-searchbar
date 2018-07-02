@@ -363,9 +363,6 @@ export default class Search extends Component {
                 )}
               </TouchableOpacity>
             </View>
-            <View>
-              {this.state.results}
-            </View>
           </View>
         )}
         <View style={{flex:1,height :resultsHeight}}>
