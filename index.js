@@ -57,7 +57,8 @@ export default class Search extends Component {
     keyboardAppearance: PropTypes.string,
     fontFamily: PropTypes.string,
     allDataOnEmptySearch: PropTypes.bool,
-    editable: PropTypes.bool
+    editable: PropTypes.bool,
+    resultsHeight: PropTypes.number,
   };
 
   static defaultProps = {
@@ -90,7 +91,8 @@ export default class Search extends Component {
     allDataOnEmptySearch: false,
     backCloseSize: 28,
     fontSize: 20,
-    editable: true
+    editable: true,
+    resultsHeight:250,
   };
 
   constructor(props) {
@@ -101,7 +103,8 @@ export default class Search extends Component {
       show: props.showOnLoad,
       top: new Animated.Value(
         props.showOnLoad ? 0 : INITIAL_TOP + props.heightAdjust
-      )
+      ),
+      results:[]
     };
   }
 
@@ -131,6 +134,9 @@ export default class Search extends Component {
   };
 
   hide = () => {
+    this.setState({
+      results:[]
+    });
     const { onHide, animate, animationDuration } = this.props;
     if (onHide) {
       onHide(this.state.input);
@@ -151,6 +157,11 @@ export default class Search extends Component {
     }
   };
 
+  setResults = (results)=>{
+    this.setState({
+      results:results
+    })
+  };
   _doHide = () => {
     const { clearOnHide } = this.props;
     this.setState({ show: false });
@@ -260,7 +271,8 @@ export default class Search extends Component {
       closeButtonAccessibilityLabel,
       backCloseSize,
       fontSize,
-      editable
+      editable,
+      resultsHeight,
     } = this.props;
     return (
       <Animated.View
@@ -365,6 +377,11 @@ export default class Search extends Component {
             </View>
           </View>
         )}
+        <View style={{flex:1,height :resultsHeight}}>
+          <ScrollView style={{flex:1}}>
+            {[this.state.results]}
+          </ScrollView>
+        </View>
       </Animated.View>
     );
   };
