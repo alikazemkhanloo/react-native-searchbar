@@ -310,7 +310,7 @@ export default class Search extends Component {
                     </View>
                   ) : (
                     <Icon
-                      name="arrow-back"
+                      name="arrow-forward"
                       size={backCloseSize}
                       style={{
                         color: iconColor,
